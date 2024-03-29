@@ -116,6 +116,14 @@ function get_settings(settings)
   return [sheet_name, row, col, price_sheet_name, price_row, price_col];
 }
 
+function clear_cells(sheet, row, col)
+{
+  var last = sheet.getLastRow();
+  var num = last - row + 1;
+  sheet.getRange(row, col, num, 2).clearContent()
+}
+
+
 function fifo_price() 
 {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -136,6 +144,7 @@ function fifo_price()
 
 
   var sheet2 = ss.getSheetByName(price_sheet_name);
+  clear_cells(sheet2, price_row, price_col + 2);
   get_prices(sheet2, price_row, price_col, list);
   
 
